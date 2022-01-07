@@ -1,13 +1,15 @@
 import React from 'react'
 import Button from './button'
 
-function SearchBar() {
-    let [value, setValue] = React.useState('')
+function SearchBar(props) {
+    let [city, setCity] = React.useState('')
     
-    return <div><input type = "text" 
+    return <React.Fragment><input type = "text" 
     placeholder="Enter a city"
-    value={value} onChange={e => setValue(e.target.value)}></input>
-    <Button data={value}/>
+    value={city} onChange={e => setCity(e.target.value)} className="text-2xl text-black bg-cyan-200  rounded-lg pl-3"></input>
+    <div>
+    <Button city={city} state={props.state}/>
     </div>
+    </React.Fragment>
 }
 export default SearchBar;

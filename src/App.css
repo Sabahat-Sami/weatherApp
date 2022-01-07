@@ -36,14 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
 body{
-  background : black;
-  color: white;
-}
-ul{
-  list-style-type: none;
-}
-.temp{
-  display:flex;
-  flex-direction: column;
+  background: #0755;
+
 }

@@ -14,32 +14,15 @@ let fahrenheit = temp => {
 let roundToTwo = num => +(Math.round(num + "e+2")  + "e-2");
 
 
-let checkForSpaces = city =>  city.replace(/\s/g, "-");
-
-const listOfID = {
-    "new-york-city" : 5128581,
-    "los-angeles" : 5368361,
-    "tokyo" : 1850147
-}
 export default{
-getCityID : async (city) =>{
-    try{
-
-        city = checkForSpaces(city).toLowerCase();
-        return listOfID[city];
-    }
-    catch (err){
-        console.log(err);
-    }
-},
-getData : async (cityID) => {
+getData : async (city, state) => {
     try{
         const key = 'f8020db1ec191700b820071328156a21';
-        const resp = await axios.get('https://api.openweathermap.org/data/2.5/weather?id=' + cityID+ '&appid=' + key);
+        const resp = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city},${state},US&limit=5&appid=${key}`);
         return resp;
     }
     catch (err){
-        console.error(err);
+        alert("enter a valid city!");
     }
 },
 
@@ -51,17 +34,16 @@ parseData : async (data) => {
         const temp_min = await roundToTwo(fahrenheit(data['data']['main']['temp_min']));
 
         return [  
-            {id: "temperature", temperature:temp}, 
-            {id: "feels like", temperature:feelsLike}, 
-            {id: "max temperature", temperature:temp_max}, 
-            {id: "min temperature", temperature : temp_min}
+            {id: "Temperature", temperature:temp}, 
+            {id: "Feels Like", temperature:feelsLike}, 
+            {id: "Max Temperature", temperature:temp_max}, 
+            {id: "Min Temperature", temperature : temp_min}
         ];
     }
     catch(err){
         console.log(err);
+        return [];
     }
-
-},
-
+}
 }
 
